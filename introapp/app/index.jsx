@@ -10,7 +10,7 @@ const Index = () => {
     <View className="flex-1 items-center justify-center bg-yellow-400" >
       <Text className="3xl font-pblack" >INDEX</Text>
       <StatusBar style='auto' />
-      <Link href='/profile' className='text-orange-500' >go to profile</Link>
+      <Link href='/home' className='text-orange-500' >go to home</Link>
     </View>
   )
 }
