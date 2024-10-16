@@ -8,14 +8,16 @@ import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 import { Link, router } from 'expo-router'
 import { createUser } from '../../lib/appwrite'
+import { useGlobalContext } from '../../context/GlobalProvider'
 
 
 const SignUp = () => {
+  const { setUser, setIsLogged } = useGlobalContext()
 
-  const [form, setform] = useState({
-    username:'',
-    email:'',
-    password:''
+  const [form, setForm] = useState({
+    username:" ",
+    email:" ",
+    password:" "
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -29,6 +31,9 @@ const SignUp = () => {
       const result = await createUser(form.username, form.email, form.password)
 
       // setting it to global state
+      setUser(result);
+      setIsLogged(true);
+
       router.replace('/home')
     } catch (err) {
       Alert.alert('checkout', err.message)      
@@ -47,20 +52,20 @@ const SignUp = () => {
             className="w-[115px] h-[115px]"
           />
           <Text className='text-white text-2xl text-semibold mt-2 font-psemibold'>
-            register to Aora
+            register to Aorora
           </Text>
             {/* username */}
           <FormField
             title='Username'
             value={form.username}
-            handleChangeText={(e)=>setform({...form, username:e})}
+            handleChangeText={(e)=>setForm({...form, username:e})}
             otherStyles="mt-4"
           />
             {/* email */}
           <FormField
             title='Email'
             value={form.email}
-            handleChangeText={(e)=>setform({...form, email:e})}
+            handleChangeText={(e)=>setForm({...form, email:e})}
             otherStyles="mt-3"
             keyboardType="email-address"
           />
@@ -68,7 +73,7 @@ const SignUp = () => {
           <FormField
             title='Password'
             value={form.password}
-            handleChangeText={(e)=>setform({...form, password:e})}
+            handleChangeText={(e)=>setForm({...form, password:e})}
             otherStyles="mt-3"
           />
 
